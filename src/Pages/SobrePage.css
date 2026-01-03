@@ -1,0 +1,123 @@
+.sobre-page {
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.sobre-container {
+  max-width: 800px;
+  width: 100%;
+  background: var(--cor-texto-branco);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: var(--sombra-media);
+  border: 1px solid var(--cor-borda);
+}
+
+.sobre-container h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--cor-marrom-escuro);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  border-bottom: 3px solid var(--cor-terracota);
+  padding-bottom: 1rem;
+}
+
+.sobre-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sobre-content h2 {
+  color: var(--cor-marrom-medio);
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 2px solid var(--cor-marrom-claro);
+  padding-bottom: 0.5rem;
+}
+
+.sobre-content p {
+  color: var(--cor-texto-secundario);
+  line-height: 1.8;
+  text-align: justify;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Dark mode - manter cores escuras para melhor legibilidade */
+.dark-mode .sobre-container {
+  background: #ffffff;
+}
+
+.dark-mode .sobre-container h1 {
+  color: #5d4e37;
+  border-bottom-color: #c17a5f;
+}
+
+.dark-mode .sobre-content h2 {
+  color: #8b7355;
+  border-bottom-color: #d4c5b9;
+}
+
+.dark-mode .sobre-content p {
+  color: #5d4e37;
+}
+
+@media (max-width: 768px) {
+  .sobre-page {
+    padding: 1rem;
+  }
+
+  .sobre-container {
+    padding: 1.5rem;
+  }
+
+  .sobre-container h1 {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .sobre-content {
+    gap: 1.25rem;
+  }
+
+  .sobre-content h2 {
+    font-size: 1.25rem;
+  }
+
+  .sobre-content p {
+    font-size: 0.95rem;
+    text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  .sobre-page {
+    padding: 0.5rem;
+  }
+
+  .sobre-container {
+    padding: 1.25rem;
+  }
+
+  .sobre-container h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .sobre-content {
+    gap: 1rem;
+  }
+
+  .sobre-content h2 {
+    font-size: 1.1rem;
+  }
+
+  .sobre-content p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+}
+

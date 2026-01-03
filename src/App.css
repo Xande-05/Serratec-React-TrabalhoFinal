@@ -1,0 +1,43 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main {
+  flex: 1;
+  padding: var(--espacamento-xl) 0;
+}
+
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--espacamento-md);
+}
+
+.app-hero {
+  text-align: center;
+  padding: var(--espacamento-xl) 0;
+  margin-bottom: var(--espacamento-xl);
+}
+
+.app-hero h2 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--cor-marrom-escuro);
+  margin-bottom: var(--espacamento-md);
+}
+
+.app-hero p {
+  font-size: 1.25rem;
+  color: var(--cor-texto-secundario);
+}
+
+@media (max-width: 768px) {
+  .app-main {
+    padding: var(--espacamento-lg) 0;
+  }
+  
+  .app-hero {
+    padding: var(--espacamento-lg) 0;
+  }
+}
