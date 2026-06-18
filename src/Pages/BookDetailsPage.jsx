@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { buscarLivroPorId, formatarDadosLivro } from '../services/googleBooksApi';
+import { buscarLivroPorId, formatarDadosLivro } from '../Services/googleBooksApi';
 import { useCart } from '../contexts/cartContexts';
 import './BookDetailsPage.css';
       

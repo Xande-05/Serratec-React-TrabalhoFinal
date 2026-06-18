@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 import { Carousel } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { buscarLivros, buscarLivrosPopulares, formatarDadosLivro } from '../services/googleBooksApi';
+import { buscarLivros, buscarLivrosPopulares, formatarDadosLivro } from '../Services/googleBooksApi';
 import { useCart } from '../contexts/cartContexts';
 import './HomePage.css';
 
