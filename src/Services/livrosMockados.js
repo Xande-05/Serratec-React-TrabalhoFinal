@@ -24,7 +24,7 @@ const mockBooks = [
     title: "Dom Casmurro",
     authors: ["Machado de Assis"],
     publishedDate: "1899",
-    image: "https://covers.openlibrary.org/b/id/8235116-L.jpg",
+    image: "https://m.media-amazon.com/images/I/81XpG2iKTlL._AC_UF1000,1000_QL80_.jpg",
     categories: ["Romance"],
     pageCount: 256,
     description: "Clássico da literatura brasileira."

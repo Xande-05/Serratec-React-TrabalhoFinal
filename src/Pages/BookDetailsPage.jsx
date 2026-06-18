@@ -26,7 +26,7 @@ const BookDetailsPage = () => {
 
       try {
         const livroEncontrado = livrosMockados.find(
-          livro => livro.id === idLivro
+          livro => String(livro.id) === String(idLivro)
         );
 
         setLivro(livroEncontrado);
