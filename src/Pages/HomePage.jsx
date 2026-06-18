@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-
+import livrosMockados from '../Services/livrosMockados';
 import { Carousel } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { buscarLivros, buscarLivrosPopulares, formatarDadosLivro } from '../Services/googleBooksApi';
 import { useCart } from '../contexts/cartContexts';
+
 import './HomePage.css';
 
 const HomePage = () => {
@@ -24,11 +24,7 @@ const HomePage = () => {
     const carregarLivrosMaisVendidos = async () => {
       setCarregandoMaisVendidos(true);
       try {
-        const resultados = await buscarLivrosPopulares(15);
-        const livrosFormatados = resultados
-          .map(formatarDadosLivro)
-          .filter(livro => livro.image);
-        setLivrosMaisVendidos(livrosFormatados);
+        setLivrosMaisVendidos(livrosMockados);
       } catch (erro) {
         console.error('Erro ao carregar livros mais vendidos:', erro);
         setLivrosMaisVendidos([]);
@@ -54,13 +50,16 @@ const HomePage = () => {
 
       setCarregando(true);
       try {
-        const resultados = await buscarLivros(termoBusca, 40);
-        const livrosFormatados = resultados.map(formatarDadosLivro);
-        setLivros(livrosFormatados);
+        const livrosEncontrados = livrosMockados.filter((livro) =>
+        livro.title.toLowerCase().includes(termoBusca.toLowerCase()) ||
+        livro.authors.join(' ').toLowerCase().includes(termoBusca.toLowerCase())
+      );
+
+      setLivros(livrosEncontrados);
 
 
         const generosUnicos = [...new Set(
-          livrosFormatados.flatMap(livro => livro.categories || [])
+          livrosEncontrados.flatMap(livro => livro.categories || [])
         )];
         setGeneros(generosUnicos);
       } catch (erro) {

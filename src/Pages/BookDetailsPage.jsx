@@ -1,13 +1,12 @@
+import livrosMockados from '../Services/livrosMockados';
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { buscarLivroPorId, formatarDadosLivro } from '../Services/googleBooksApi';
+import { useParams } from 'react-router-dom';
 import { useCart } from '../contexts/cartContexts';
 import './BookDetailsPage.css';
       
 const BookDetailsPage = () => {
 
   const { bookId: idLivro } = useParams();
-  const navigate = useNavigate();
   const [livro, setLivro] = useState(null);
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState(null);
@@ -26,9 +25,11 @@ const BookDetailsPage = () => {
       setErro(null);
 
       try {
-        const dadosLivro = await buscarLivroPorId(idLivro);
-        const livroFormatado = formatarDadosLivro(dadosLivro);
-        setLivro(livroFormatado);
+        const livroEncontrado = livrosMockados.find(
+          livro => livro.id === idLivro
+        );
+
+        setLivro(livroEncontrado);
       } catch (erro) {
         console.error('Erro ao buscar detalhes do livro:', erro);
         setErro('Erro ao carregar os detalhes do livro');
