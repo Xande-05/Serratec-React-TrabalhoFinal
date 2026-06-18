@@ -1,11 +1,11 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
-import { LoginPage } from "../pages/LoginPage";
-import { RegisterPage } from "../pages/RegisterPage";
-import HomePage from "../pages/HomePage";
-import SobrePage from "../pages/SobrePage";
-import BookDetailsPage from "../pages/BookDetailsPage";
-import { CartPage } from "../pages/CartPage";
+import { LoginPage } from "../Pages/LoginPage";
+import { RegisterPage } from "../Pages/RegisterPage";
+import HomePage from "../Pages/HomePage";
+import SobrePage from "../Pages/SobrePage";
+import BookDetailsPage from "../Pages/BookDetailsPage";
+import { CartPage } from "../Pages/CartPage";
 
 export const Router = () => {
   return (
