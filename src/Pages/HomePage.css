@@ -74,11 +74,12 @@
 
 /* Dark mode - manter cores escuras no filtro (mesmas cores do modo claro) */
 .dark-mode .home-page aside {
-  background: #ffffff;
+  background: #2d2d2d;
+  border-color: #444;
 }
 
-.dark-mode .home-page aside h2 {
-  color: #5d4e37;
+.dark-mode .home-page aside h3 {
+  color: #8b7355;
   border-bottom-color: #d4c5b9;
 }
 
@@ -87,7 +88,7 @@
 }
 
 .dark-mode .home-page aside label {
-  color: #3d352b;
+  color: #e0e0e0;
 }
 
 .dark-mode .home-page aside label:hover {
@@ -275,7 +276,8 @@
 
 
 .dark-mode .home-page .book-card-reveal {
-  background: #ffffff;
+  background: #2d2d2d;
+  border-color: #444;
 }
 
 .dark-mode .home-page .book-card-reveal h5 {

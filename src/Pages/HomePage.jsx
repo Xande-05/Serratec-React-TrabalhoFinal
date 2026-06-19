@@ -112,7 +112,7 @@ const HomePage = () => {
       
       const grupos = [];
       const larguraTela = window.innerWidth;
-      const tamanho = larguraTela < 480 ? 2 : larguraTela < 768 ? 3 : 5;
+      const tamanho = larguraTela < 480 ? 1 : larguraTela < 768 ? 2 : 3;
       
       for (let i = 0; i < livrosArray.length; i += tamanho) {
         grupos.push(livrosArray.slice(i, i + tamanho));
