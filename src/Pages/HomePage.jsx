@@ -15,8 +15,8 @@ const HomePage = () => {
   const [livrosFiltrados, setLivrosFiltrados] = useState([]);
   const [carregando, setCarregando] = useState(false);
   const [filtroPreco, setFiltroPreco] = useState('todos');
-  const [filtroGenero, setFiltroGenero] = useState('todos');
-  const [generos, setGeneros] = useState([]);
+  const [filtroAutor, setFiltroAutor] = useState('todos');
+  const [autores, setAutores] = useState([]);
   const [livrosMaisVendidos, setLivrosMaisVendidos] = useState([]);
   const [carregandoMaisVendidos, setCarregandoMaisVendidos] = useState(false);
 
@@ -25,6 +25,12 @@ const HomePage = () => {
       setCarregandoMaisVendidos(true);
       try {
         setLivrosMaisVendidos(livrosMockados);
+              const autoresUnicos = [
+          ...new Set(
+            livrosMockados.flatMap(livro => livro.authors)
+          )
+        ];
+        setAutores(autoresUnicos);
       } catch (erro) {
         console.error('Erro ao carregar livros mais vendidos:', erro);
         setLivrosMaisVendidos([]);
@@ -44,10 +50,8 @@ const HomePage = () => {
       if (termoBusca.trim() === '') {
         setLivros([]);
         setLivrosFiltrados([]);
-        setGeneros([]);
         return;
       }
-
       setCarregando(true);
       try {
         const livrosEncontrados = livrosMockados.filter((livro) =>
@@ -56,12 +60,6 @@ const HomePage = () => {
       );
 
       setLivros(livrosEncontrados);
-
-
-        const generosUnicos = [...new Set(
-          livrosEncontrados.flatMap(livro => livro.categories || [])
-        )];
-        setGeneros(generosUnicos);
       } catch (erro) {
         console.error('Erro ao buscar livros:', erro);
         setLivros([]);
@@ -84,9 +82,10 @@ const HomePage = () => {
     let filtrados = [...livros];
 
 
-    if (filtroGenero !== 'todos') {
+    if (filtroAutor !== 'todos') {
       filtrados = filtrados.filter(livro =>
-        livro.categories && livro.categories.includes(filtroGenero)
+        livro.authors &&
+        livro.authors.includes(filtroAutor)
       );
     }
 
@@ -100,10 +99,12 @@ const HomePage = () => {
     }
 
     setLivrosFiltrados(filtrados);
-  }, [livros, filtroPreco, filtroGenero]);
+  }, [livros, filtroPreco, filtroAutor]);
 
 
   const [gruposLivros, setGruposLivros] = useState([]);
+
+  const livrosCatalogo = livrosMockados;
 
   useEffect(() => {
     const agruparLivros = (livrosArray) => {
@@ -120,7 +121,7 @@ const HomePage = () => {
     };
 
     const atualizarGrupos = () => {
-      const grupos = agruparLivros(livrosMaisVendidos);
+      const grupos = agruparLivros(livrosCatalogo);
       setGruposLivros(grupos);
     };
 
@@ -132,7 +133,7 @@ const HomePage = () => {
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [livrosMaisVendidos]);
+  }, [livrosCatalogo]);
 
   const handleAdicionarAoCarrinho = async (livro) => {
     console.log('handleAdicionarAoCarrinho chamado com livro:', livro);
@@ -148,58 +149,8 @@ const HomePage = () => {
     }
   };
 
-
-
   return (
     <div className="home-page">
-      
-      {!carregandoMaisVendidos && livrosMaisVendidos.length > 0 && gruposLivros.length > 0 && (
-        <section className="carousel-section">
-          <h2>📚 Livros Mais Vendidos</h2>
-          <Carousel
-            interval={5000}
-            indicators={gruposLivros.length > 1}
-            controls={gruposLivros.length > 1}
-            fade
-          >
-            {gruposLivros.map((grupo, indexGrupo) => (
-              <Carousel.Item key={indexGrupo}>
-                <div className="carousel-item-container">
-                  {grupo.map((livro) => (
-                    <div
-                      key={livro.id}
-                      className="book-card-reveal"
-                      onClick={() => navigate(`/book/${livro.id}`)}
-                    >
-                      {livro.image && (
-                        <img
-                          src={livro.image}
-                          alt={livro.title}
-                        />
-                      )}
-                      <h5>
-                        {livro.title.length > 30
-                          ? `${livro.title.substring(0, 30)}...`
-                          : livro.title}
-                      </h5>
-                      <p>
-                        {livro.authors.join(', ').length > 25
-                          ? `${livro.authors.join(', ').substring(0, 25)}...`
-                          : livro.authors.join(', ')}
-                      </p>
-                      {livro.averageRating > 0 && (
-                        <p style={{ fontSize: '0.75rem', color: '#ffa500' }}>
-                          ⭐ {livro.averageRating.toFixed(1)} ({livro.ratingsCount} avaliações)
-                        </p>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </Carousel.Item>
-            ))}
-          </Carousel>
-        </section>
-      )}
 
       {carregandoMaisVendidos && (
         <div style={{ textAlign: 'center', padding: '2rem' }}>
@@ -207,42 +158,34 @@ const HomePage = () => {
         </div>
       )}
 
-      <header>
-        <h1>QUAL LIVRO DESEJA?</h1>
-        <input
-          type="text"
-          placeholder="Pesquisar livro, autor, ano ou gênero"
-          value={termoBusca}
-          onChange={(evento) => setTermoBusca(evento.target.value)}
-        />
-      </header>
-
       <div className="home-content">
         <aside>
           <h2>Filtrar</h2>
 
           <div>
-            <h3>Gênero</h3>
+            <h3>Autor</h3>
+
             <label>
               <input
                 type="radio"
-                name="genero"
+                name="autor"
                 value="todos"
-                checked={filtroGenero === 'todos'}
-                onChange={(evento) => setFiltroGenero(evento.target.value)}
+                checked={filtroAutor === 'todos'}
+                onChange={(evento) => setFiltroAutor(evento.target.value)}
               />
               Todos
             </label>
-            {generos.slice(0, 10).map((genero) => (
-              <label key={genero}>
+
+            {autores.map((autor) => (
+              <label key={autor}>
                 <input
                   type="radio"
-                  name="genero"
-                  value={genero}
-                  checked={filtroGenero === genero}
-                  onChange={(evento) => setFiltroGenero(evento.target.value)}
+                  name="autor"
+                  value={autor}
+                  checked={filtroAutor === autor}
+                  onChange={(evento) => setFiltroAutor(evento.target.value)}
                 />
-                {genero}
+                {autor}
               </label>
             ))}
           </div>
@@ -299,17 +242,69 @@ const HomePage = () => {
             </div>
           )}
 
-          {!carregando && termoBusca.trim() === '' && (
-            <div>
-              <p>Digite algo na busca para encontrar livros</p>
-            </div>
-          )}
-
           {!carregando && termoBusca.trim() !== '' && livrosFiltrados.length === 0 && (
             <div>
               <p>Nenhum livro encontrado. Tente outra busca.</p>
             </div>
           )}
+
+          {!carregandoMaisVendidos && livrosMaisVendidos.length > 0 && gruposLivros.length > 0 && (
+        <section className="carousel-section">
+            <h2>📚 Nosso Catálogo</h2>
+            <Carousel
+              interval={5000}
+              indicators={gruposLivros.length > 1}
+              controls={gruposLivros.length > 1}
+              fade
+            >
+              {gruposLivros.map((grupo, indexGrupo) => (
+                <Carousel.Item key={indexGrupo}>
+                  <div className="carousel-item-container">
+                    {grupo.map((livro) => (
+                      <div
+                        key={livro.id}
+                        className="book-card-reveal"
+                        onClick={() => navigate(`/book/${livro.id}`)}
+                      >
+                        {livro.image && (
+                          <img
+                            src={livro.image}
+                            alt={livro.title}
+                          />
+                        )}
+                        <h5>
+                          {livro.title.length > 30
+                            ? `${livro.title.substring(0, 30)}...`
+                            : livro.title}
+                        </h5>
+                        <p>
+                          {livro.authors.join(', ').length > 25
+                            ? `${livro.authors.join(', ').substring(0, 25)}...`
+                            : livro.authors.join(', ')}
+                        </p>
+                        {livro.averageRating > 0 && (
+                          <p style={{ fontSize: '0.75rem', color: '#ffa500' }}>
+                            ⭐ {livro.averageRating.toFixed(1)} ({livro.ratingsCount} avaliações)
+                          </p>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </Carousel.Item>
+              ))}
+            </Carousel>
+          </section>
+        )}
+
+        <header>
+        <h1>QUAL LIVRO DESEJA?</h1>
+        <input
+          type="text"
+          placeholder="Pesquisar livro, autor, ano ou gênero"
+          value={termoBusca}
+          onChange={(evento) => setTermoBusca(evento.target.value)}
+        />
+      </header>
 
           {!carregando && livrosFiltrados.length > 0 && (
             <>

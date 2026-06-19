@@ -101,7 +101,7 @@ const mockBooks = [
     id: 8,
     title: "O Código Da Vinci",
     authors: ["Dan Brown"],
-    publishDate: "2003",
+    publishedDate: "2003",
     image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQN1vU1iOQAN7_o2DFU_xasn8PbVWZjoz5pDbX1XKUfpA&s=10",
     categories: ["Suspense"],
     pageCount: 480,
