@@ -164,15 +164,16 @@
 
 /* Dark mode - manter cores escuras nos cards de livro */
 .dark-mode .home-page .book-card {
-  background: #ffffff;
+  background: #2b2b2b;
+  border-color: #444;
 }
 
 .dark-mode .home-page .book-card h3 {
-  color: #5d4e37;
+  color: #f0f0f0;
 }
 
 .dark-mode .home-page .book-card p {
-  color: #8b7355;
+  color: #c0c0c0;
 }
 
 .dark-mode .home-page header h1 {
